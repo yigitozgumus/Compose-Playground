@@ -20,6 +20,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.composelayoutdemos.navigation.topics.CardScreen
+import com.example.composelayoutdemos.navigation.topics.LayoutScreen
+import com.example.composelayoutdemos.navigation.topics.TextScreen
 import com.example.composelayoutdemos.ui.theme.ComposeLayoutDemosTheme
 
 class MainActivity : ComponentActivity() {
@@ -63,12 +65,21 @@ fun PlaygroundNavigation(
         startDestination = Topics.Entry.name,
         modifier = modifier
     ) {
-        composable(Topics.Entry.name) {
-            EntryScreen(onTopicClicked = {screen -> navController.navigate(screen)})
+        Topics.values().map { topic ->
+            composable(topic.name) {
+                returnMappedTopicScreen(topic = topic, navRef = navController)
+            }
         }
-        composable(Topics.Cards.name) {
-            CardScreen()
-        }
+    }
+}
+@Composable
+fun returnMappedTopicScreen(topic: Topics, navRef: NavHostController) {
+    val navigation = {topic: String ->  navRef.navigate(topic) }
+    when(topic.name) {
+        Topics.Entry.name -> EntryScreen(onTopicClicked = navigation)
+        Topics.Cards.name -> CardScreen()
+        Topics.Layouts.name -> LayoutScreen()
+        Topics.Text.name -> TextScreen()
     }
 }
 
@@ -85,7 +96,7 @@ fun EntryScreen(onTopicClicked: (String) -> Unit) {
         }
     ) {
         LazyColumn() {
-            items(Topics.values().filter{it.name == Topics.Entry.name}, null, {
+            items(Topics.values().filterNot{it.name == Topics.Entry.name}, null, {
                 Topic(it.name, onTopicClicked)
             })
         }
@@ -98,7 +109,7 @@ fun Topic(topicName: String, onTopicClicked: (String) -> Unit) {
         onClick = { onTopicClicked(topicName) },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(0.dp, 8.dp)
+            .padding(16.dp)
     ) {
         Text(text = topicName)
     }
