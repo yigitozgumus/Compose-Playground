@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 // Colors
 val buttonPrimary = Color(0xfffdb814)
 val textColorPrimary = Color(0xff323a47)
+val buttonRowColorStart = Color(0x00FFFFFF)
 
 // Strings
 val textSearchFlight = "Uçuş Ara"
