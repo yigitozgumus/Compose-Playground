@@ -74,15 +74,26 @@ fun PlaygroundNavigation(
 
 @Composable
 fun EntryScreen(onTopicClicked: (String) -> Unit) {
-    LazyColumn() {
-        items(Topics.values(), null , {
-            Topic(it.name, onTopicClicked )
-        })
+    Scaffold(
+        topBar = {
+            Text(
+                text = "Compose Playground",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+        }
+    ) {
+        LazyColumn() {
+            items(Topics.values().filter{it.name == Topics.Entry.name}, null, {
+                Topic(it.name, onTopicClicked)
+            })
+        }
     }
 }
 
 @Composable
-fun Topic(topicName: String, onTopicClicked:(String) -> Unit) {
+fun Topic(topicName: String, onTopicClicked: (String) -> Unit) {
     Button(
         onClick = { onTopicClicked(topicName) },
         modifier = Modifier
