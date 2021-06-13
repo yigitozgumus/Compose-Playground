@@ -4,76 +4,98 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.composelayoutdemos.navigation.DemoScreen
-import com.example.composelayoutdemos.navigation.NavigationController
+import com.example.composelayoutdemos.navigation.topics.CardScreen
 import com.example.composelayoutdemos.ui.theme.ComposeLayoutDemosTheme
-import com.google.android.material.tabs.TabLayout
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposeLayoutDemoApp()
+            ComposeLayoutDemosTheme() {
+                PlaygroundApp()
+            }
         }
     }
 }
 
+enum class Topics {
+    Entry,
+    Cards,
+    Text,
+    Layouts,
+
+}
+
 @Composable
-fun ComposeLayoutDemoApp() {
-    val allScreens = DemoScreen.values().toList()
+fun PlaygroundApp() {
+    val allScreens = Topics.values()
     val navController = rememberNavController()
     val backstackEntry = navController.currentBackStackEntryAsState()
-
-    val currentScreen = DemoScreen.fromRoute(
-        backstackEntry.value?.destination?.route
-    )
-    Scaffold(
-        topBar = {
-            DemoTabRow()
-        }
-    ) { innerPadding ->
-        NavigationController(
+    Scaffold { innerPadding ->
+        PlaygroundNavigation(
             navController = navController,
-            modifier = Modifier.padding(innerPadding)
-        )
+            modifier = Modifier.padding(innerPadding))
     }
 }
 
 @Composable
-fun DemoTabRow() {
-    Surface(
-        modifier = Modifier.height(TabHeight).fillMaxWidth()
+fun PlaygroundNavigation(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    NavHost(
+        navController = navController,
+        startDestination = Topics.Entry.name,
+        modifier = modifier
     ) {
-        Text(
-            modifier = Modifier.fillMaxWidth().padding(4.dp),
-            text = "Layout Demo Screen",
-            textAlign = TextAlign.Center
-        )
+        composable(Topics.Entry.name) {
+            EntryScreen(onTopicClicked = {screen -> navController.navigate(screen)})
+        }
+        composable(Topics.Cards.name) {
+            CardScreen()
+        }
+    }
+}
+
+@Composable
+fun EntryScreen(onTopicClicked: (String) -> Unit) {
+    LazyColumn() {
+        items(Topics.values(), null , {
+            Topic(it.name, onTopicClicked )
+        })
+    }
+}
+
+@Composable
+fun Topic(topicName: String, onTopicClicked:(String) -> Unit) {
+    Button(
+        onClick = { onTopicClicked(topicName) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp, 8.dp)
+    ) {
+        Text(text = topicName)
     }
 }
 
 @Preview
 @Composable
-fun DemoTabRowPreview(){
-    DemoTabRow()
+fun topicPreview(){
+    Topic(Topics.Cards.name, {})
 }
 
-@Composable
-fun EntryScreen() {
-    Text("Hello")
-}
-
-val TabHeight = 20.dp
