@@ -4,11 +4,12 @@ import androidx.compose.ui.graphics.Color
 
 // Colors
 val buttonPrimary = Color(0xfffdb814)
+val textColorPrimary = Color(0xff323a47)
 
 // Strings
-val searchFlight = "Uçuş Ara"
-val checkinFlight = "Check - in"
-val login = "Giriş Yap"
+val textSearchFlight = "Uçuş Ara"
+val textCheckinFlight = "Check - in"
+val textLogin = "Giriş Yap"
 val textBolbol = "BolBol Nedir?"
 val textSeat = "Koltuk"
 val textBaggage = "Bagaj"
