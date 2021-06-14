@@ -1,20 +1,28 @@
 package com.example.composelayoutdemos.navigation.topics.pegasus
 
-import androidx.annotation.DrawableRes
-import com.example.composelayoutdemos.R
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddShoppingCart
+import androidx.compose.material.icons.filled.AirlineSeatFlatAngled
+import androidx.compose.material.icons.filled.AirplaneTicket
+import androidx.compose.material.icons.filled.Assignment
+import androidx.compose.material.icons.filled.Backpack
+import androidx.compose.material.icons.filled.HdrPlus
+import androidx.compose.material.icons.filled.More
+import androidx.compose.material.icons.filled.Verified
+import androidx.compose.ui.graphics.vector.ImageVector
 
-data class ButtonItem(@DrawableRes val icon: Int, val description: String)
+data class ButtonItem(val icon: ImageVector, val description: String)
 
 val buttonListTopRow = listOf<ButtonItem>(
-    ButtonItem(R.drawable.icons_home_bol_bol, textBolbol),
-    ButtonItem(R.drawable.icons_home_seat, textSeat),
-    ButtonItem(R.drawable.icons_home_baggage, textBaggage),
-    ButtonItem(R.drawable.icons_home_extras, textAdditionalService)
+    ButtonItem(Icons.Default.Verified, textBolbol),
+    ButtonItem(Icons.Default.AirlineSeatFlatAngled, textSeat),
+    ButtonItem(Icons.Default.Backpack, textBaggage),
+    ButtonItem(Icons.Default.HdrPlus, textAdditionalService)
 )
 
 val buttonListBottomRow = listOf<ButtonItem>(
-    ButtonItem(R.drawable.icons_home_my_trips, textFlightAssistant),
-    ButtonItem(R.drawable.icons_home_boarding_pass, textBarcodeScreen),
-    ButtonItem(R.drawable.icons_home_offers, textCampaigns),
-    ButtonItem(R.drawable.icons_home_more, textMore)
+    ButtonItem(Icons.Default.Assignment, textFlightAssistant),
+    ButtonItem(Icons.Default.AirplaneTicket, textBarcodeScreen),
+    ButtonItem(Icons.Default.AddShoppingCart, textCampaigns),
+    ButtonItem(Icons.Default.More, textMore)
 )

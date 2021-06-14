@@ -8,10 +8,10 @@ val textColorPrimary = Color(0xff323a47)
 val buttonRowColorStart = Color(0x00FFFFFF)
 
 // Strings
-val textSearchFlight = "Uçuş Ara"
-val textCheckinFlight = "Check - in"
-val textLogin = "Giriş Yap"
-val textBolbol = "BolBol Nedir?"
+const val textSearchFlight = "Uçuş Ara"
+const val textCheckinFlight = "Check - in"
+const val textLogin = "Giriş Yap"
+const val textBolbol = "BolBol Nedir?"
 val textSeat = "Koltuk"
 val textBaggage = "Bagaj"
 val textAdditionalService = "Ek Hizmetler"
