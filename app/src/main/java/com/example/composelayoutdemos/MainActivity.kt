@@ -21,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.composelayoutdemos.navigation.topics.CardScreen
 import com.example.composelayoutdemos.navigation.topics.LayoutScreen
+import com.example.composelayoutdemos.navigation.topics.PegasusHomeScreen
 import com.example.composelayoutdemos.navigation.topics.TextScreen
 import com.example.composelayoutdemos.ui.theme.ComposeLayoutDemosTheme
 
@@ -40,6 +41,7 @@ enum class Topics {
     Cards,
     Text,
     Layouts,
+    Pegasus
 
 }
 
@@ -80,6 +82,7 @@ fun returnMappedTopicScreen(topic: Topics, navRef: NavHostController) {
         Topics.Cards.name -> CardScreen()
         Topics.Layouts.name -> LayoutScreen()
         Topics.Text.name -> TextScreen()
+        Topics.Pegasus.name -> PegasusHomeScreen()
     }
 }
 
