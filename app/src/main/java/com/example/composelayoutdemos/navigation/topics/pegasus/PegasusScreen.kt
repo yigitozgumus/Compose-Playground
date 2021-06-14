@@ -21,6 +21,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.painterResource
@@ -106,7 +108,12 @@ fun BolBolButtonDemo() {
 }
 
 @Composable
-fun ButtonRow(buttonList: List<ButtonItem>){
+fun ButtonRow(buttonList: List<ButtonItem>, topRow: Boolean){
+    val gradientBrush = if (topRow) {
+        Brush.verticalGradient(listOf(Color.Transparent, Color.White))
+    } else {
+        Brush.verticalGradient(listOf(Color.White, Color.Transparent))
+    }
     Row(modifier = Modifier
         .height(IntrinsicSize.Min)
         .fillMaxWidth(),
@@ -117,7 +124,7 @@ fun ButtonRow(buttonList: List<ButtonItem>){
                 Spacer(modifier = Modifier
                     .width(1.dp)
                     .fillMaxHeight()
-                    .background(color = Color.White))
+                    .background(gradientBrush))
             }
         }
     }
@@ -127,12 +134,12 @@ fun ButtonRow(buttonList: List<ButtonItem>){
 @Composable
 fun ButtonRowDemo() {
     Column(modifier = Modifier.fillMaxWidth()) {
-        ButtonRow(buttonListTopRow)
+        ButtonRow(buttonListTopRow, true)
         Spacer(modifier = Modifier
             .height(1.dp)
             .fillMaxWidth()
-            .background(color = Color.White))
-        ButtonRow(buttonListBottomRow) }
+            .background(Brush.horizontalGradient(listOf(Color.Transparent, Color.White, Color.Transparent))))
+        ButtonRow(buttonListBottomRow, false) }
 }
 
 // endregion
