@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Verified
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,6 +42,7 @@ import com.example.composelayoutdemos.navigation.topics.pegasus.textSearchFlight
 
 @Composable
 fun PegasusHomeScreen() {
+
 }
 
 @Preview
@@ -49,6 +52,32 @@ fun PegasusHomeScreenDemo() {
 }
 
 // region Topbar
+
+@Composable
+fun NotificationIcon(newNotification: Boolean = true) {
+    Box(
+        modifier = Modifier
+            .width(32.dp)
+            .height(32.dp)
+            .background(color = buttonPrimary, shape = RoundedCornerShape(4.dp))
+    ) {
+        Icon(
+            imageVector = Icons.Default.Notifications,
+            contentDescription = null,
+            tint = Color.White,
+            modifier = Modifier.padding(4.dp)
+        )
+        // TODO: add new notification icon
+    }
+}
+
+@Preview
+@Composable
+fun NotificationIconDemo() {
+    NotificationIcon()
+}
+
+
 
 // endregion
 
@@ -79,7 +108,7 @@ fun CheckinFlightButtonDemo() {
 
 @Preview
 @Composable
-fun SearchFlightButton() {
+fun SearchFlightButtonDemo() {
     MainScreenButton(backgroundColor = buttonPrimary, text = textSearchFlight)
 }
 
