@@ -19,6 +19,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Verified
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,6 +39,7 @@ import com.example.composelayoutdemos.navigation.topics.pegasus.buttonPrimary
 import com.example.composelayoutdemos.navigation.topics.pegasus.textBolbol
 import com.example.composelayoutdemos.navigation.topics.pegasus.textCheckinFlight
 import com.example.composelayoutdemos.navigation.topics.pegasus.textColorPrimary
+import com.example.composelayoutdemos.navigation.topics.pegasus.textLogin
 import com.example.composelayoutdemos.navigation.topics.pegasus.textSearchFlight
 
 @Composable
@@ -77,7 +79,25 @@ fun NotificationIconDemo() {
     NotificationIcon()
 }
 
+@Composable
+fun loginArea() {
+    Box(modifier = Modifier.background(color = Color.White.copy(alpha = 0.8F))) {
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(text = textLogin)
+            Icon(
+                modifier = Modifier.padding(4.dp),
+                imageVector = Icons.Default.Person,
+                contentDescription = null
+            )
+        }
+    }
+}
 
+@Preview
+@Composable
+fun loginAreaDemo() {
+    loginArea()
+}
 
 // endregion
 
