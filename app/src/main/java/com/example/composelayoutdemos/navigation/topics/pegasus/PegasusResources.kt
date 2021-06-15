@@ -9,6 +9,7 @@ val buttonRowColorStart = Color(0x00FFFFFF)
 val DarkBlue = Color(0xff002f6c)
 val DarkGreen = Color(0xff00251a)
 val DarkRed = Color(0xff7f0000)
+val flightCardAccentColor = Color(0x33c8cacc)
 
 // Strings
 const val textSearchFlight = "Uçuş Ara"

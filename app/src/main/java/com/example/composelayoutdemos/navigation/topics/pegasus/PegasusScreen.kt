@@ -5,10 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
@@ -35,17 +32,28 @@ import com.example.composelayoutdemos.navigation.topics.pegasus.*
 @Composable
 fun PegasusHomeScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
-        Box(modifier = Modifier.fillMaxSize().background(color = DarkBlue))
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = DarkBlue)
+        )
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Brush.linearGradient(colors = listOf(Color.Transparent, Color.Black)))
         ) {
-            val (topBar, tabLayout, flightButton, checkinButton, layoutActions) = createRefs()
+            val (topBar, tabLayout, flightCard, flightButton, checkinButton, layoutActions) = createRefs()
             TopBarArea(modifier = Modifier
                 .padding(16.dp, 0.dp)
                 .constrainAs(topBar) {
                     top.linkTo(parent.top, margin = 16.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                })
+            FlightCardArea(modifier = Modifier
+                .padding(16.dp, 24.dp, 16.dp, 0.dp)
+                .constrainAs(flightCard) {
+                    top.linkTo(topBar.bottom)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 })
@@ -90,6 +98,38 @@ fun PegasusHomeScreenDemo() {
 
 // region flight card
 
+@Composable
+fun FlightCardArea(modifier: Modifier = Modifier) {
+    Card(
+        modifier = modifier
+            .height(120.dp)
+            .fillMaxWidth()
+            .background(color = Color.White, shape = RoundedCornerShape(4.dp))
+    ) {
+        Row {
+            Box(
+                modifier = Modifier
+                    .width(24.dp)
+                    .background(color = flightCardAccentColor)
+                    .fillMaxHeight(),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.icon_plane_small),
+                    contentDescription = null,
+                    tint = buttonPrimary
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun FlightCardAreaDemo() {
+    FlightCardArea()
+}
+
 // endregion
 
 // region Topbar
@@ -124,10 +164,10 @@ fun LoginArea(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .padding(8.dp, 0.dp)
-            .background(color = Color.White.copy(alpha = 0.8F))
+            .background(color = Color.White.copy(alpha = 0.8F), shape = RoundedCornerShape(4.dp))
     ) {
         Row(
-            modifier = Modifier.padding(4.dp),
+            modifier = Modifier.padding(4.dp, 0.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
