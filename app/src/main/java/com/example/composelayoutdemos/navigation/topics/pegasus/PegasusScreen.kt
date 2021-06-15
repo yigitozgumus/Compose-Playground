@@ -30,48 +30,53 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.composelayoutdemos.R
 import com.example.composelayoutdemos.navigation.topics.pegasus.*
 
+// region Home Screen
+
 @Composable
 fun PegasusHomeScreen() {
-    ConstraintLayout(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Brush.linearGradient(colors = listOf(Color.Transparent, Color.Black)))
-    ) {
-        val (topBar, tabLayout, flightButton, checkinButton, layoutActions) = createRefs()
-        TopBarArea(modifier = Modifier
-            .padding(16.dp, 0.dp)
-            .constrainAs(topBar) {
-                top.linkTo(parent.top, margin = 16.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            })
-        CampaignTabArea(modifier = Modifier
-            .padding(16.dp, 0.dp)
-            .constrainAs(tabLayout) {
-                bottom.linkTo(flightButton.top)
+    Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize().background(color = DarkBlue))
+        ConstraintLayout(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Brush.linearGradient(colors = listOf(Color.Transparent, Color.Black)))
+        ) {
+            val (topBar, tabLayout, flightButton, checkinButton, layoutActions) = createRefs()
+            TopBarArea(modifier = Modifier
+                .padding(16.dp, 0.dp)
+                .constrainAs(topBar) {
+                    top.linkTo(parent.top, margin = 16.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                })
+            CampaignTabArea(modifier = Modifier
+                .padding(16.dp, 0.dp)
+                .constrainAs(tabLayout) {
+                    bottom.linkTo(flightButton.top)
 
-            })
-        SearchFlightButton(modifier = Modifier
-            .padding(16.dp, 4.dp)
-            .constrainAs(flightButton) {
-                top.linkTo(tabLayout.bottom, margin = 4.dp)
+                })
+            SearchFlightButton(modifier = Modifier
+                .padding(16.dp, 4.dp)
+                .constrainAs(flightButton) {
+                    top.linkTo(tabLayout.bottom, margin = 4.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                })
+            CheckinFlightButton(modifier = Modifier
+                .padding(16.dp, 8.dp)
+                .constrainAs(checkinButton) {
+                    top.linkTo(flightButton.bottom, margin = 8.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(layoutActions.top)
+                })
+            LayoutActionsArea(modifier = Modifier.constrainAs(layoutActions) {
+                bottom.linkTo(parent.bottom)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             })
-        CheckinFlightButton(modifier = Modifier
-            .padding(16.dp, 8.dp)
-            .constrainAs(checkinButton) {
-                top.linkTo(flightButton.bottom, margin = 8.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(layoutActions.top)
-            })
-        ButtonRow(modifier = Modifier.constrainAs(layoutActions) {
-            bottom.linkTo(parent.bottom)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        })
 
+        }
     }
 }
 
@@ -80,6 +85,12 @@ fun PegasusHomeScreen() {
 fun PegasusHomeScreenDemo() {
     PegasusHomeScreen()
 }
+
+// endregion
+
+// region flight card
+
+// endregion
 
 // region Topbar
 
@@ -301,7 +312,7 @@ fun BolBolButtonDemo() {
 }
 
 @Composable
-fun ButtonRow(buttonList: List<ButtonItem>, topRow: Boolean) {
+fun LayoutActionsArea(buttonList: List<ButtonItem>, topRow: Boolean) {
     val gradientBrush = if (topRow) {
         Brush.verticalGradient(listOf(Color.Transparent, Color.White))
     } else {
@@ -328,9 +339,9 @@ fun ButtonRow(buttonList: List<ButtonItem>, topRow: Boolean) {
 }
 
 @Composable
-fun ButtonRow(modifier: Modifier = Modifier) {
+fun LayoutActionsArea(modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxWidth()) {
-        ButtonRow(buttonListTopRow, true)
+        LayoutActionsArea(buttonListTopRow, true)
         Spacer(
             modifier = Modifier
                 .height(1.dp)
@@ -341,14 +352,14 @@ fun ButtonRow(modifier: Modifier = Modifier) {
                     )
                 )
         )
-        ButtonRow(buttonListBottomRow, false)
+        LayoutActionsArea(buttonListBottomRow, false)
     }
 }
 
 @Preview
 @Composable
 fun ButtonRowDemo() {
-    ButtonRow()
+    LayoutActionsArea()
 }
 
 // endregion
