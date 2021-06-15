@@ -3,6 +3,7 @@ package com.example.composelayoutdemos.navigation.topics
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.filled.Verified
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -24,12 +26,53 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.composelayoutdemos.R
 import com.example.composelayoutdemos.navigation.topics.pegasus.*
 
 @Composable
 fun PegasusHomeScreen() {
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Brush.linearGradient(colors = listOf(Color.Transparent, Color.Black)))
+    ) {
+        val (topBar, tabLayout, flightButton, checkinButton, layoutActions) = createRefs()
+        TopBarArea(modifier = Modifier
+            .padding(16.dp, 0.dp)
+            .constrainAs(topBar) {
+                top.linkTo(parent.top, margin = 16.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            })
+        CampaignTabArea(modifier = Modifier
+            .padding(16.dp, 0.dp)
+            .constrainAs(tabLayout) {
+                bottom.linkTo(flightButton.top)
 
+            })
+        SearchFlightButton(modifier = Modifier
+            .padding(16.dp, 4.dp)
+            .constrainAs(flightButton) {
+                top.linkTo(tabLayout.bottom, margin = 4.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            })
+        CheckinFlightButton(modifier = Modifier
+            .padding(16.dp, 8.dp)
+            .constrainAs(checkinButton) {
+                top.linkTo(flightButton.bottom, margin = 8.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(layoutActions.top)
+            })
+        ButtonRow(modifier = Modifier.constrainAs(layoutActions) {
+            bottom.linkTo(parent.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+        })
+
+    }
 }
 
 @Preview
@@ -115,9 +158,13 @@ fun MainLogoAreaDemo() {
 }
 
 @Composable
-fun TopBarArea() {
-    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
-        MainLogoArea(modifier = Modifier.align(Alignment.CenterStart))
+fun TopBarArea(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
+        MainLogoArea(
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .padding(8.dp, 0.dp)
+        )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End,
@@ -137,10 +184,48 @@ fun TopBarAreaDemo() {
 
 // endregion
 
+// region tablayout
+
+@Composable
+fun CampaignTabIndicator(selected: Boolean) {
+    Box(
+        modifier = Modifier
+            .padding(8.dp)
+            .height(12.dp)
+            .width(12.dp)
+            .clip(CircleShape)
+            .background(color = if (selected) buttonPrimary else Color.Gray)
+    )
+}
+
+@Preview
+@Composable
+fun CampaignTabIndicatorDemo() {
+    CampaignTabIndicator(true)
+}
+
+@Composable
+fun CampaignTabArea(modifier: Modifier = Modifier) {
+    Row(modifier = modifier) {
+        listOf<Boolean>(true, false, false).map {
+            CampaignTabIndicator(selected = it)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun CampaignTabAreaDemo() {
+    CampaignTabArea()
+}
+
+// endregion
+
 //region Buttons
 @Composable
-fun MainScreenButton(backgroundColor: Color, text: String) {
+fun MainScreenButton(modifier: Modifier = Modifier, backgroundColor: Color, text: String) {
     Button(
+        modifier = modifier,
         onClick = {},
         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
     ) {
@@ -156,16 +241,26 @@ fun MainScreenButton(backgroundColor: Color, text: String) {
     }
 }
 
+@Composable
+fun SearchFlightButton(modifier: Modifier = Modifier) {
+    MainScreenButton(modifier = modifier, backgroundColor = buttonPrimary, text = textSearchFlight)
+}
+
+@Composable
+fun CheckinFlightButton(modifier: Modifier = Modifier) {
+    MainScreenButton(modifier = modifier, backgroundColor = Color.White, text = textCheckinFlight)
+}
+
 @Preview
 @Composable
 fun CheckinFlightButtonDemo() {
-    MainScreenButton(backgroundColor = Color.White, text = textCheckinFlight)
+    CheckinFlightButton()
 }
 
 @Preview
 @Composable
 fun SearchFlightButtonDemo() {
-    MainScreenButton(backgroundColor = buttonPrimary, text = textSearchFlight)
+    SearchFlightButton()
 }
 
 
@@ -174,12 +269,13 @@ fun SearchFlightButtonDemo() {
 // region Button Rows
 
 @Composable
-fun MainScreenButton(button: ButtonItem) {
-    Box(modifier = Modifier.padding(8.dp)) {
+fun MainScreenButton(modifier: Modifier = Modifier, button: ButtonItem) {
+    Box(modifier = modifier.padding(8.dp), contentAlignment = Alignment.Center) {
         Column(
             modifier = Modifier
-                .width(80.dp)
-                .height(60.dp),
+                .height(60.dp)
+                .width(IntrinsicSize.Max)
+                .wrapContentWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -218,7 +314,7 @@ fun ButtonRow(buttonList: List<ButtonItem>, topRow: Boolean) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         buttonList.forEachIndexed { index, button ->
-            MainScreenButton(button = button)
+            MainScreenButton(Modifier.weight(1f), button = button)
             if (index != buttonList.lastIndex) {
                 Spacer(
                     modifier = Modifier
@@ -231,10 +327,9 @@ fun ButtonRow(buttonList: List<ButtonItem>, topRow: Boolean) {
     }
 }
 
-@Preview
 @Composable
-fun ButtonRowDemo() {
-    Column(modifier = Modifier.fillMaxWidth()) {
+fun ButtonRow(modifier: Modifier = Modifier) {
+    Column(modifier = modifier.fillMaxWidth()) {
         ButtonRow(buttonListTopRow, true)
         Spacer(
             modifier = Modifier
@@ -248,6 +343,12 @@ fun ButtonRowDemo() {
         )
         ButtonRow(buttonListBottomRow, false)
     }
+}
+
+@Preview
+@Composable
+fun ButtonRowDemo() {
+    ButtonRow()
 }
 
 // endregion
