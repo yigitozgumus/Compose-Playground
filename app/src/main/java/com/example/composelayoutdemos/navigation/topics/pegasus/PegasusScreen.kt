@@ -1,17 +1,8 @@
 package com.example.composelayoutdemos.navigation.topics
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -26,21 +17,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.composelayoutdemos.navigation.topics.pegasus.ButtonItem
-import com.example.composelayoutdemos.navigation.topics.pegasus.buttonListBottomRow
-import com.example.composelayoutdemos.navigation.topics.pegasus.buttonListTopRow
-import com.example.composelayoutdemos.navigation.topics.pegasus.buttonPrimary
-import com.example.composelayoutdemos.navigation.topics.pegasus.textBolbol
-import com.example.composelayoutdemos.navigation.topics.pegasus.textCheckinFlight
-import com.example.composelayoutdemos.navigation.topics.pegasus.textColorPrimary
-import com.example.composelayoutdemos.navigation.topics.pegasus.textLogin
-import com.example.composelayoutdemos.navigation.topics.pegasus.textSearchFlight
+import com.example.composelayoutdemos.R
+import com.example.composelayoutdemos.navigation.topics.pegasus.*
 
 @Composable
 fun PegasusHomeScreen() {
@@ -56,9 +41,10 @@ fun PegasusHomeScreenDemo() {
 // region Topbar
 
 @Composable
-fun NotificationIcon(newNotification: Boolean = true) {
+fun NotificationIcon(modifier: Modifier = Modifier, newNotification: Boolean = true) {
     Box(
         modifier = Modifier
+            .padding(8.dp, 0.dp)
             .width(32.dp)
             .height(32.dp)
             .background(color = buttonPrimary, shape = RoundedCornerShape(4.dp))
@@ -80,14 +66,28 @@ fun NotificationIconDemo() {
 }
 
 @Composable
-fun loginArea() {
-    Box(modifier = Modifier.background(color = Color.White.copy(alpha = 0.8F))) {
-        Row(modifier = Modifier.padding(4.dp)) {
-            Text(text = textLogin)
+fun LoginArea(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .padding(8.dp, 0.dp)
+            .background(color = Color.White.copy(alpha = 0.8F))
+    ) {
+        Row(
+            modifier = Modifier.padding(4.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = textLogin,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(4.dp, 0.dp)
+            )
             Icon(
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier
+                    .padding(4.dp)
+                    .background(color = Color.White, shape = RoundedCornerShape(4.dp)),
                 imageVector = Icons.Default.Person,
-                contentDescription = null
+                contentDescription = null,
             )
         }
     }
@@ -95,8 +95,44 @@ fun loginArea() {
 
 @Preview
 @Composable
-fun loginAreaDemo() {
-    loginArea()
+fun LoginAreaDemo() {
+    LoginArea()
+}
+
+@Composable
+fun MainLogoArea(modifier: Modifier = Modifier) {
+    Image(
+        painter = painterResource(id = R.drawable.logo_pegasus),
+        contentDescription = null,
+        alignment = Alignment.Center
+    )
+}
+
+@Preview
+@Composable
+fun MainLogoAreaDemo() {
+    MainLogoArea()
+}
+
+@Composable
+fun TopBarArea() {
+    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
+        MainLogoArea(modifier = Modifier.align(Alignment.CenterStart))
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier.align(Alignment.CenterEnd)
+        ) {
+            LoginArea()
+            NotificationIcon()
+        }
+    }
+}
+
+@Preview
+@Composable
+fun TopBarAreaDemo() {
+    TopBarArea()
 }
 
 // endregion
@@ -139,10 +175,11 @@ fun SearchFlightButtonDemo() {
 
 @Composable
 fun MainScreenButton(button: ButtonItem) {
-    Box(modifier = Modifier.padding(8.dp)){
-        Column( modifier = Modifier
-            .width(80.dp)
-            .height(60.dp),
+    Box(modifier = Modifier.padding(8.dp)) {
+        Column(
+            modifier = Modifier
+                .width(80.dp)
+                .height(60.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -168,7 +205,7 @@ fun BolBolButtonDemo() {
 }
 
 @Composable
-fun ButtonRow(buttonList: List<ButtonItem>, topRow: Boolean){
+fun ButtonRow(buttonList: List<ButtonItem>, topRow: Boolean) {
     val gradientBrush = if (topRow) {
         Brush.verticalGradient(listOf(Color.Transparent, Color.White))
     } else {
@@ -209,7 +246,8 @@ fun ButtonRowDemo() {
                     )
                 )
         )
-        ButtonRow(buttonListBottomRow, false) }
+        ButtonRow(buttonListBottomRow, false)
+    }
 }
 
 // endregion
