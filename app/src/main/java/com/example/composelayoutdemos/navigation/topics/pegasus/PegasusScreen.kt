@@ -139,7 +139,7 @@ fun FlightCardArea(modifier: Modifier = Modifier) {
                         modifier = Modifier.background(
                             color = buttonPrimary,
                             shape = RoundedCornerShape(8.dp)
-                        ).padding(8.dp, 4.dp).clickable {  },
+                        ).clickable {  }.padding(8.dp, 4.dp),
                         text = "Biniş Kartlarım",
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
@@ -153,7 +153,7 @@ fun FlightCardArea(modifier: Modifier = Modifier) {
                         modifier = Modifier.background(
                             color = Color.Gray,
                             shape = RoundedCornerShape(8.dp)
-                        ).padding(8.dp, 4.dp).clickable {  },
+                        ).clickable {  }.padding(8.dp, 4.dp),
                         text = "Seyahat Detayı",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
