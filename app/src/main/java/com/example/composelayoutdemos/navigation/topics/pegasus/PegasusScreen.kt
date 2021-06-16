@@ -106,21 +106,96 @@ fun FlightCardArea(modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .background(color = Color.White, shape = RoundedCornerShape(4.dp))
     ) {
-        Row {
+        Row(modifier = Modifier.fillMaxSize()) {
+            FlightCardCornerArea()
             Box(
                 modifier = Modifier
-                    .width(24.dp)
-                    .background(color = flightCardAccentColor)
-                    .fillMaxHeight(),
-                contentAlignment = Alignment.Center
+                    .fillMaxSize()
+                    .padding(16.dp)
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.icon_plane_small),
-                    contentDescription = null,
-                    tint = buttonPrimary
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    FlightInfoArea(modifier = Modifier, isDeparture = true)
+                    Icon(
+                        painter = painterResource(id = R.drawable.icon_flight_between),
+                        contentDescription = null
+                    )
+                    FlightInfoArea(modifier = Modifier, isDeparture = false)
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        modifier = Modifier.background(
+                            color = buttonPrimary,
+                            shape = RoundedCornerShape(16.dp)
+                        ).padding(8.dp, 4.dp),
+                        text = "Biniş Kartlarım",
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        style = TextStyle(
+                            color = textColorPrimary,
+                            fontSize = 10.sp
+                        )
+                    )
+
+                    Text(
+                        modifier = Modifier.background(
+                            color = Color.Gray,
+                            shape = RoundedCornerShape(16.dp)
+                        ).padding(8.dp, 4.dp),
+                        text = "Seyahat Detayı",
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        style = TextStyle(
+                            color = textColorPrimary,
+                            fontSize = 10.sp
+                        )
+                    )
+
+                }
             }
         }
+    }
+}
+
+@Composable
+fun FlightCardCornerArea() {
+    Box(
+        modifier = Modifier
+            .width(24.dp)
+            .background(color = flightCardAccentColor)
+            .fillMaxHeight(),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.icon_plane_small),
+            contentDescription = null,
+            tint = buttonPrimary
+        )
+    }
+}
+
+@Composable
+fun FlightInfoArea(modifier: Modifier = Modifier, isDeparture: Boolean = true) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = if (isDeparture) Alignment.Start else Alignment.End
+    ) {
+        Text(text = "24.03.2020")
+        Text(text = "Istanbul - SAW")
+        Text(text = "07:15")
     }
 }
 
