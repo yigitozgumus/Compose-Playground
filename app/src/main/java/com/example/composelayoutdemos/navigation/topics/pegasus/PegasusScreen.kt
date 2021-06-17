@@ -80,7 +80,7 @@ fun NotificationIconDemo() {
 }
 
 @Composable
-fun loginArea() {
+fun LoginArea() {
     Box(modifier = Modifier.background(color = Color.White.copy(alpha = 0.8F))) {
         Row(modifier = Modifier.padding(4.dp)) {
             Text(text = textLogin)
@@ -95,8 +95,8 @@ fun loginArea() {
 
 @Preview
 @Composable
-fun loginAreaDemo() {
-    loginArea()
+fun LoginAreaDemo() {
+    LoginArea()
 }
 
 // endregion
@@ -194,7 +194,7 @@ fun ButtonRow(buttonList: List<ButtonItem>, topRow: Boolean){
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun ButtonRowDemo() {
     Column(modifier = Modifier.fillMaxWidth()) {
