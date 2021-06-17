@@ -1,4 +1,4 @@
-package com.example.composelayoutdemos.ui.theme
+package com.example.composeplayground.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

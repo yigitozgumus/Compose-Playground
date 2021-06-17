@@ -1,4 +1,4 @@
-package com.example.composelayoutdemos.navigation.topics
+package com.example.composeplayground.navigation.topics
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LayoutScreen() {
+fun CardScreen() {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -27,3 +27,4 @@ fun LayoutScreen() {
         Text(text ="content will be added")
     }
 }
+

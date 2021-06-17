@@ -1,4 +1,4 @@
-package com.example.composelayoutdemos.navigation.topics.pegasus
+package com.example.composeplayground.navigation.topics.pegasus
 
 import androidx.compose.ui.graphics.Color
 

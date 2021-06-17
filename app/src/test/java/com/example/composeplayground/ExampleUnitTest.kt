@@ -1,4 +1,4 @@
-package com.example.composelayoutdemos
+package com.example.composeplayground
 
 import org.junit.Test
 

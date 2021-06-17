@@ -1,6 +1,5 @@
-package com.example.composelayoutdemos.navigation.topics
+package com.example.composeplayground.navigation.topics
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.Orientation
@@ -19,8 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.composelayoutdemos.ui.theme.Blue100
-import com.example.composelayoutdemos.ui.theme.ComposeLayoutDemosTheme
+import com.example.composeplayground.ui.theme.Blue100
+import com.example.composeplayground.ui.theme.ComposeLayoutDemosTheme
 
 @Composable
 fun TextScreen() {

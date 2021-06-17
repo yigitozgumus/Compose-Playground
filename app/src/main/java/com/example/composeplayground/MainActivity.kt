@@ -1,4 +1,4 @@
-package com.example.composelayoutdemos
+package com.example.composeplayground
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,11 +19,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.composelayoutdemos.navigation.topics.CardScreen
-import com.example.composelayoutdemos.navigation.topics.LayoutScreen
-import com.example.composelayoutdemos.navigation.topics.PegasusHomeScreen
-import com.example.composelayoutdemos.navigation.topics.TextScreen
-import com.example.composelayoutdemos.ui.theme.ComposeLayoutDemosTheme
+import com.example.composeplayground.navigation.topics.CardScreen
+import com.example.composeplayground.navigation.topics.LayoutScreen
+import com.example.composeplayground.navigation.topics.PegasusHomeScreen
+import com.example.composeplayground.navigation.topics.TextScreen
+import com.example.composeplayground.ui.theme.ComposeLayoutDemosTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
