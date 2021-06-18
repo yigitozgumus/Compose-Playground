@@ -36,12 +36,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-enum class Topics {
-    Entry,
-    Cards,
-    Text,
-    Layouts,
-    Pegasus
+enum class Topics(val contentName: String) {
+    Entry("Entry point"),
+    Cards("Cards"),
+    Text("Text"),
+    Layouts("Layouts"),
+    Pegasus("Static Pegasus Home Screen")
 
 }
 
@@ -100,7 +100,7 @@ fun EntryScreen(onTopicClicked: (String) -> Unit) {
     ) {
         LazyColumn() {
             items(Topics.values().filterNot{it.name == Topics.Entry.name}, null, {
-                Topic(it.name, onTopicClicked)
+                Topic(it.contentName, onTopicClicked)
             })
         }
     }
