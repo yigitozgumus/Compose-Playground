@@ -4,13 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk 30
-    buildToolsVersion "30.0.3"
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.example.composelayoutdemos"
         minSdk 21
-        targetSdk 30
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -39,7 +38,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion composeVersion
-        kotlinCompilerVersion '1.5.10'
+        kotlinCompilerVersion '1.5.21'
     }
 }
 

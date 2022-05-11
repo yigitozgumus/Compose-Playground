@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ComposeLayoutDemos">
         <activity
-            android:name="com.example.com.example.composeplayground.MainActivity"
+            android:name="com.example.composeplayground.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ComposeLayoutDemos.NoActionBar">
